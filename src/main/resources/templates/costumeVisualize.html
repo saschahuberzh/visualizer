@@ -1,6 +1,43 @@
-<html>
-	<head></head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8"/>
+    	<title>Costume view</title>
+	</head>
 	<body>
 		<p>costumeVisualize</p>
+		
+		<form th:object="${element}" method="post">
+		  <p>Please select your element:</p>
+		  <label>
+		  	Class
+		  	<input th:field="*{element}" type="radio" id="e_class" name="element" value="class">
+		  </label>
+		  <br>
+		  <label>
+		  	Method
+		  	<input th:field="*{element}" type="radio" id="e_method" name="element" value="method">
+		  </label>
+		  <br>
+		  <label>
+		  	Attribute
+		  	<input th:field="*{element}" type="radio" id="e_atribut" name="element" value="attribute">
+		  </label>
+		  <br>
+		  <button type="submit">Check</button>
+		</form>
+		
+		<table>
+			<tr th:each="costumElement: ${elementHistory}">
+			    <td th:text="${costumElement}" />  
+			</tr>
+		</table>
+		
+		<hr>
+		
+		<table>
+			<tr th:each="testItem: ${testList}">
+			    <td th:text="${testItem}" />  
+			</tr>
+		</table>
 	</body>
 </html>
