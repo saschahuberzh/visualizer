@@ -1,15 +1,49 @@
-.all{
+.all {
 	height: 100%;
 	display: flex;
 	flex-direction: column;
 }
-.header{
+
+.header {
 	
 }
-.main{
+
+.main {
 	flex-grow: 1;
-	background-color: white;
 }
-.footer{
+
+.footer {
 	
+}
+
+.welcomeTitel{
+	background-color: white;
+	font-family: Adam;
+	display: flex;
+	opacity: 0.8;
+	align-items: center;
+	justify-content: center;
+	color: #0033a1;
+	font-size: 80px;
+}
+
+/* Navbar */
+.navbar-custom {
+	background-color: #0033a1;
+}
+
+/* change the brand and text color */
+.navbar-custom .navbar-brand, .navbar-custom .navbar-text {
+	color: rgba(255, 255, 255, .8);
+}
+
+/* change the link color */
+.navbar-custom .navbar-nav .nav-link {
+	color: rgba(255, 255, 255, .5);
+}
+
+/* change the color of active or hovered links */
+.navbar-custom .nav-item.active .nav-link, .navbar-custom .nav-item:hover .nav-link
+	{
+	color: #ffffff;
 }
