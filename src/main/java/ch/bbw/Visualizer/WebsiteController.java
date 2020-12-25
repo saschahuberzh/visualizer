@@ -37,15 +37,40 @@ public class WebsiteController {
 	@GetMapping("/costumeVisualize")
 	public String costumeVisualizeControllerGet(Model model) {
 		elementHistory = new ElementHistory();
-		model.addAttribute("element", new Element());
+		model.addAttribute("elementDto", new ElementDto());
 		return "costumeVisualize";
 	}
 	
 	@PostMapping("/costumeVisualize")
-	public String costumVisualizeCntrollerPost(Model model, @ModelAttribute("element")Element element) {
+	public String costumVisualizeControllerPost(Model model, @ModelAttribute("elementDto")ElementDto elementDto) {
 
-		elementHistory.addElement(element.getElement());
-		model.addAttribute("element", new Element());
+		Element element = new Element();
+		element.setElementString(elementDto.getElement());
+		
+		
+		int idOfNewElement = elementHistory.getList().size();
+		
+		if(elementDto.getElementId()==null) {
+			//set id if no parent exist
+			System.out.println("no parent exist");
+			element.setValueForOrder(idOfNewElement + "");
+			elementHistory.addElement(element);
+		}else {
+			//set id if parent exist
+			System.out.println("parent exist");
+			int idOfChoosen = Integer.parseInt(elementDto.getElementId());
+			int idOfChild = elementHistory.getList().get(idOfChoosen).getChildrenElementList().size();
+			
+			element.setValueForOrder(idOfChoosen + "/" + idOfChild);	
+			elementHistory.addElementWith1Parent(idOfChoosen, element);
+		}
+		
+		System.out.println(elementHistory.toString());
+		
+		
+		
+		
+		model.addAttribute("elementDto", new ElementDto());
 		model.addAttribute("elementHistory", elementHistory.getList());
 		
 		model.addAttribute("testList", overList());
@@ -57,18 +82,21 @@ public class WebsiteController {
 	public ArrayList<String> overList() {
 		ArrayList<String> testList = new ArrayList<>();
 		
-		for(String momentElement : elementHistory.getList()) {
-			if(momentElement.equals("class")) {
+		for(Element momentElement : elementHistory.getList()) {
+			if(momentElement.getElementString().equals("class")) {
+				
 				//If it has no children
 				testList.add("public class classname {}");
 				//It it has children
 				
 			}
-			if(momentElement.equals("method")) {
+			if(momentElement.getElementString().equals("method")) {
 				//If it has no children
 				testList.add("private type methodname() {}");
+				//It it has children
+				
 			}
-			if(momentElement.equals("attribute")) {
+			if(momentElement.getElementString().equals("attribute")) {
 				//System.out.println("here is a atribut");
 				testList.add("private type;");
 			}

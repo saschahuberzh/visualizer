@@ -44,8 +44,9 @@
 		<div class="main container">
 
 			<div class="row">
-				<div class="col-4">
-					<form th:object="${element}" method="post">
+
+				<div class="col-6">
+					<form th:object="${elementDto}" method="post">
 						<p>Please select your element:</p>
 						<label> Class <input th:field="*{element}" type="radio"
 							id="e_class" name="element" value="class">
@@ -54,30 +55,37 @@
 						</label> <br> <label> Attribute <input th:field="*{element}"
 							type="radio" id="e_atribut" name="element" value="attribute">
 						</label> <br>
-						<button type="submit">Check</button>					
+						<button type="submit">Check</button>
+
+						<!-- <table>
+							<tr th:each="testItem, iter: ${testList}">
+								<td><input type="radio" id="_class" name="elemente"></td>
+								<td th:text="${iter.index}">
+								<td th:text="${testItem}" />
+							</tr>
+						</table> -->
+
+						<table>
+							<tr th:each="currentElement, iter: ${elementHistory}">
+								<td><input
+									th:attr="value = ${currentElement.valueForOrder}"
+									th:field="*{elementId}" type="radio" id="_class"
+									name="elemente"></td>
+								<td th:text="${iter.index}">
+								<td th:text="${currentElement.elementString}" />
+
+								<table th:if="${currentElement.childrenElementList.size() > 0}">
+									<tr th:each="currentElement2, iter: ${currentElement.childrenElementList}">
+										<td th:text="${currentElement2.elementString}" />
+									<tr>
+								</table>
+
+							</tr>
+						</table>
 					</form>
-
-					<!--<form method="get" action="/costumeVisualize">
-						<button type="submit">Reset</button>
-					</form>-->
-
 				</div>
-				<div class="col-8">
-					<table>
-						<tr th:each="costumElement: ${elementHistory}">
-							<td th:text="${costumElement}" />
-						</tr>
-					</table>
 
-					<hr>
-
-					<table>
-						<tr th:each="testItem, iter: ${testList}">
-							<td th:text="${iter.index} ">
-							<td th:text="${testItem}" />
-						</tr>
-					</table>
-				</div>
+				<div class="col-6"></div>
 			</div>
 
 		</div>
