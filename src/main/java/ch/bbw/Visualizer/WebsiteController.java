@@ -7,12 +7,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class WebsiteController {
 	
 	ElementHistory elementHistory;
+	ArrayList<InputMessage> list;
 	
 	@GetMapping("/")
 	public String slashController() {
@@ -24,14 +29,39 @@ public class WebsiteController {
 		return "home";
 	}
 	
+	@GetMapping("/visualize")
+	public String visualizeController(Model model) {
+		list = new ArrayList<InputMessage>();
+		model.addAttribute("inputMessage", new InputMessage());
+		return "visualize";
+	}
+	
+	@RequestMapping(value={"/visualize/{id}"}, method=RequestMethod.GET)
+	public String visualizeIdGetController(Model model, @PathVariable(value="id") int id) {	
+		model.addAttribute("inputMessage", new InputMessage());
+		model.addAttribute("showForm", true);
+		return "visualize";
+	}
+	
+	@RequestMapping(value={"/visualize/{id}"}, method=RequestMethod.POST)
+	public String visualizeIdPostController(Model model, @PathVariable(value="id") int id, @ModelAttribute("inputMessage")InputMessage inputMessage) {	
+		list.add(inputMessage);
+		System.out.println(list.toString());
+		
+		model.addAttribute("inputMessage", new InputMessage());
+		model.addAttribute("showForm", true);
+		model.addAttribute("list", list);
+		return "visualize";
+	}
+	
 	@GetMapping("/about")
 	public String aboutController() {
 		return "about";
 	}
 	
-	@GetMapping("/visualize")
-	public String visualizeController() {
-		return "visualize";
+	@GetMapping("/help")
+	public String helpController() {
+		return "help";
 	}
 	
 	@GetMapping("/costumeVisualize")
@@ -67,14 +97,10 @@ public class WebsiteController {
 		
 		System.out.println(elementHistory.toString());
 		
-		
-		
-		
 		model.addAttribute("elementDto", new ElementDto());
 		model.addAttribute("elementHistory", elementHistory.getList());
 		
 		model.addAttribute("testList", overList());
-		
 		
 		return "costumeVisualize";
 	}
