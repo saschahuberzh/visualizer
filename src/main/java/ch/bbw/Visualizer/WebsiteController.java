@@ -31,26 +31,36 @@ public class WebsiteController {
 	
 	@GetMapping("/visualize")
 	public String visualizeController(Model model) {
-		list = new ArrayList<InputMessage>();
+		
 		model.addAttribute("inputMessage", new InputMessage());
 		return "visualize";
 	}
 	
 	@RequestMapping(value={"/visualize/{id}"}, method=RequestMethod.GET)
 	public String visualizeIdGetController(Model model, @PathVariable(value="id") int id) {	
+		list = new ArrayList<InputMessage>();
 		model.addAttribute("inputMessage", new InputMessage());
 		model.addAttribute("showForm", true);
+		model.addAttribute("showNoImage", true);
 		return "visualize";
 	}
 	
 	@RequestMapping(value={"/visualize/{id}"}, method=RequestMethod.POST)
 	public String visualizeIdPostController(Model model, @PathVariable(value="id") int id, @ModelAttribute("inputMessage")InputMessage inputMessage) {	
+		System.out.println("Id:" + id);
+		System.out.println("Input: " + inputMessage.getMessage());
+		
+		//check what input is to save and react
 		list.add(inputMessage);
+		
 		System.out.println(list.toString());
+		
 		
 		model.addAttribute("inputMessage", new InputMessage());
 		model.addAttribute("showForm", true);
 		model.addAttribute("list", list);
+		//which image is returned
+		model.addAttribute("fileName", "img");
 		return "visualize";
 	}
 	
@@ -64,6 +74,7 @@ public class WebsiteController {
 		return "help";
 	}
 	
+	/* Unused logic */
 	@GetMapping("/costumeVisualize")
 	public String costumeVisualizeControllerGet(Model model) {
 		elementHistory = new ElementHistory();
@@ -71,6 +82,8 @@ public class WebsiteController {
 		return "costumeVisualize";
 	}
 	
+	
+	/* Unused logic */
 	@PostMapping("/costumeVisualize")
 	public String costumVisualizeControllerPost(Model model, @ModelAttribute("elementDto")ElementDto elementDto) {
 
@@ -105,6 +118,7 @@ public class WebsiteController {
 		return "costumeVisualize";
 	}
 	
+	/* Unused logic */
 	public ArrayList<String> overList() {
 		ArrayList<String> testList = new ArrayList<>();
 		

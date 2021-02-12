@@ -2,3 +2,31 @@
 	display: flex;
 	flex-direction: row;
 }
+
+
+.sideNav{
+	list-style-type: none;
+  	padding: 20px;
+}
+
+.imageText{
+	margin: 20px;
+	border-style: solid;
+	width: 500px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.image{
+	margin: 20px;
+	padding: 0;
+	border-style: solid;
+	display: flex;
+}
+
+
+.logicPart{
+	margin: 20px;
+	flex-grow: 1;
+}

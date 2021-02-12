@@ -41,14 +41,16 @@
 
 		<div class="main">
 			<div>
-				<ul>
+				<ul class="sideNav">
 					<li><a href="/visualize/1">Thema 1</a></li>
 					<li><a href="/visualize/2">Thema 2</a></li>
 					<li><a href="/visualize/3">Thema 3</a></li>	
 				</ul>
 			</div>
 			
-			<div th:if="${showForm}">
+			<div class="logicPart" th:if="${showForm}">
+				<h3>Visualize your Code</h3>
+				<hr>
 				<table>
 					<tr th:each="item: ${list}">
 					    <td th:text="${item.message}" />
@@ -56,16 +58,22 @@
 				</table>
 				
 				<form th:object="${inputMessage}" method="post">
-					<label> Code <input th:field="*{message}"
-								name="message" >
-							</label> <br>
-					<button type="submit">Check</button>
+					<label><input th:field="*{message}"
+								name="message" placeholder="Enter code">
+							</label>
+					<button type="submit">Submit</button>
 				</form>		
 			</div>
 			
-			<div th:if="${showForm}">
-				<p>image</p>
+			<div class="imageText" th:if="${showForm} and ${showNoImage}">
+				<p>No image</p>		
 			</div>
+			
+			<div class="image" th:if="${showForm} and !${showNoImage}">
+				<img th:src="@{${'/img/' + fileName + '.jpg'}}">			
+			</div>
+			
+			
 		</div>
 
 		<div class="footer">
