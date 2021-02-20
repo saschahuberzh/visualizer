@@ -75,7 +75,7 @@ public class WebsiteController {
 	}
 	
 	/* Unused logic */
-	@GetMapping("/costumeVisualize")
+	@GetMapping("/costumVisualize")
 	public String costumeVisualizeControllerGet(Model model) {
 		elementHistory = new ElementHistory();
 		model.addAttribute("elementDto", new ElementDto());
@@ -84,7 +84,7 @@ public class WebsiteController {
 	
 	
 	/* Unused logic */
-	@PostMapping("/costumeVisualize")
+	@PostMapping("/costumVisualize")
 	public String costumVisualizeControllerPost(Model model, @ModelAttribute("elementDto")ElementDto elementDto) {
 
 		Element element = new Element();
