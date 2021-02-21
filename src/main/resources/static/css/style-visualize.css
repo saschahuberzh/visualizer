@@ -12,7 +12,8 @@
 .imageText{
 	margin: 20px;
 	border-style: solid;
-	width: 500px;
+	width: 1280px;
+	height: 720px;
 	display: flex;
 	align-items: center;
 	justify-content: center;

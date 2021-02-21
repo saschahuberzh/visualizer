@@ -41,7 +41,8 @@ public class WebsiteController {
 		list = new ArrayList<InputMessage>();
 		model.addAttribute("inputMessage", new InputMessage());
 		model.addAttribute("showForm", true);
-		model.addAttribute("showNoImage", true);
+		model.addAttribute("showNoImage", false);
+		model.addAttribute("fileName", "theme_" + id + "_scene_0.gif");
 		return "visualize";
 	}
 	
@@ -60,7 +61,32 @@ public class WebsiteController {
 		model.addAttribute("showForm", true);
 		model.addAttribute("list", list);
 		//which image is returned
-		model.addAttribute("fileName", "img");
+		String[] parts = inputMessage.getMessage().split(" ", 2);
+		switch (parts[0]) {
+			case "class":
+				if (parts[1].equalsIgnoreCase("house")) {
+					model.addAttribute("fileName", "theme_1_scene_1.gif");
+				} else {
+					inputMessage.setMessage("Name doesn't exist");
+					model.addAttribute("showNoImage", true);
+				}
+			break;
+
+			case "attribute":
+				if (parts[1].equalsIgnoreCase("window")) {
+					model.addAttribute("fileName", "theme_1_scene_2.gif");
+				} else {
+					inputMessage.setMessage("Name doesn't exist");
+					model.addAttribute("showNoImage", true);
+				}
+			break;
+
+			default:
+				inputMessage.setMessage("Type doesn't exist");
+				model.addAttribute("showNoImage", true);
+			break;
+		}
+		//model.addAttribute("fileName", "theme_" + id + "_scene_0.gif");
 		return "visualize";
 	}
 	

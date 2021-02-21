@@ -42,9 +42,9 @@
 		<div class="main">
 			<div>
 				<ul class="sideNav">
-					<li><a href="/visualize/1">Thema 1</a></li>
-					<li><a href="/visualize/2">Thema 2</a></li>
-					<li><a href="/visualize/3">Thema 3</a></li>	
+					<li><a href="/visualize/1">Theme 1</a></li>
+					<li><a href="/visualize/2">Theme 2</a></li>
+					<li><a href="/visualize/3">Theme 3</a></li>
 				</ul>
 			</div>
 			
@@ -70,7 +70,7 @@
 			</div>
 			
 			<div class="image" th:if="${showForm} and !${showNoImage}">
-				<img th:src="@{${'/img/' + fileName + '.jpg'}}">			
+				<img th:src="@{${'/img/' + fileName}}">
 			</div>
 			
 			
